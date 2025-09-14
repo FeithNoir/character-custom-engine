@@ -20,12 +20,28 @@
 
         <!-- Main Content -->
         <main>
-            
             <!-- Customization Options -->
             <section id="options" class="md:col-span-1 bg-white p-4 rounded-lg shadow">
                 <h2 class="text-xl font-semibold">Options</h2>
                 <!-- Options will be loaded here by main.js -->
                 <div class="space-y-2">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">Expressions</h3>
+                        <div class="accordion-content">
+                            <h4 class="font-semibold">Eyes</h4>
+                            <button onclick="setExpression('eyes_1', event)">Normal</button>
+                            <button onclick="setExpression('eyes_angry', event)">Angry</button>
+                            <button onclick="setExpression('eyes_blush', event)">Blush</button>
+                            <button onclick="setExpression('eyes_happy', event)">Happy</button>
+                            <button onclick="setExpression('eyes_surprised', event)">Surprised</button>
+                            <h4 class="font-semibold mt-2">Mouth</h4>
+                            <button onclick="setExpression('mouth_1', event)">Normal</button>
+                            <button onclick="setExpression('mouth_angry', event)">Angry</button>
+                            <button onclick="setExpression('mouth_blush', event)">Blush</button>
+                            <button onclick="setExpression('mouth_happy', event)">Happy</button>
+                            <button onclick="setExpression('mouth_surprised', event)">Surprised</button>
+                        </div>
+                    </div>
                     <div class="accordion-item">
                         <h3 class="accordion-header">Head</h3>
                         <div class="accordion-content">
@@ -99,6 +115,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-4 flex space-x-2">
+                    <button onclick="downloadCharacter()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button>
+                    <button onclick="saveState()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                </div>
             </section>
             <!-- /Customization Options -->
 
@@ -133,6 +153,7 @@
     </div>
     <!-- /App Container -->
 
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -75,6 +75,19 @@ const masterItemList = {
     'recipe_steel_sword': { name: { es: 'Receta: Espada de Acero', en: 'Recipe: Steel Sword' }, type: 'recipe', path: './img/items/recipe.png', recipeId: 'steel_sword_recipe' },
 };
 
+const expressionList = {
+    'eyes_1': { name: { es: 'Ojos Normales', en: 'Normal Eyes' }, type: 'eyes', path: './img/expressions/eyes_1.png' },
+    'eyes_angry': { name: { es: 'Ojos Enojados', en: 'Angry Eyes' }, type: 'eyes', path: './img/expressions/eyes_angry.png' },
+    'eyes_blush': { name: { es: 'Ojos Sonrojados', en: 'Blush Eyes' }, type: 'eyes', path: './img/expressions/eyes_blush.png' },
+    'eyes_happy': { name: { es: 'Ojos Felices', en: 'Happy Eyes' }, type: 'eyes', path: './img/expressions/eyes_happy.png' },
+    'eyes_surprised': { name: { es: 'Ojos Sorprendidos', en: 'Surprised Eyes' }, type: 'eyes', path: './img/expressions/eyes_surprised.png' },
+    'mouth_1': { name: { es: 'Boca Normal', en: 'Normal Mouth' }, type: 'mouth', path: './img/expressions/mouth_1.png' },
+    'mouth_angry': { name: { es: 'Boca Enojada', en: 'Angry Mouth' }, type: 'mouth', path: './img/expressions/mouth_angry.png' },
+    'mouth_blush': { name: { es: 'Boca Sonrojada', en: 'Blush Mouth' }, type: 'mouth', path: './img/expressions/mouth_blush.png' },
+    'mouth_happy': { name: { es: 'Boca Feliz', en: 'Happy Mouth' }, type: 'mouth', path: './img/expressions/mouth_happy.png' },
+    'mouth_surprised': { name: { es: 'Boca Sorprendida', en: 'Surprised Mouth' }, type: 'mouth', path: './img/expressions/mouth_surprised.png' },
+};
+
 // --- STATE MANAGEMENT ---
 // @framework-migration-guide
 // This object holds the application's state.
@@ -93,8 +106,8 @@ const characterState = {
         weapon: null,
     },
     expression: {
-        eyes: './img/expressions/eyes_1.png',
-        mouth: './img/expressions/mouth_1.png'
+        eyes: 'eyes_1',
+        mouth: 'mouth_1'
     }
 };
 
@@ -108,8 +121,8 @@ const characterState = {
 function renderCharacter() {
     // Base body and expressions
     document.getElementById('character-body').src = 'img/character/base.png';
-    document.getElementById('character-eyes').src = characterState.expression.eyes;
-    document.getElementById('character-mouth').src = characterState.expression.mouth;
+    document.getElementById('character-eyes').src = expressionList[characterState.expression.eyes].path;
+    document.getElementById('character-mouth').src = expressionList[characterState.expression.mouth].path;
 
     // Equipment layers
     const equipmentTypes = ['pantsus', 'bra', 'bottom', 'stockings', 'top', 'suit', 'hands', 'head'];
@@ -185,12 +198,67 @@ function toggleEquip(itemId, event) {
     renderCharacter();
 }
 
+function setExpression(expressionId, event) {
+    const expressionData = expressionList[expressionId];
+    if (!expressionData) {
+        console.error(`La expresión con id '${expressionId}' no existe.`);
+        return;
+    }
+
+    const expressionType = expressionData.type; // 'eyes' or 'mouth'
+    characterState.expression[expressionType] = expressionId;
+
+    // Update active class for buttons
+    const buttons = document.querySelectorAll(`.accordion-content button`);
+    buttons.forEach(button => {
+        const onclickAttr = button.getAttribute('onclick');
+        if (onclickAttr && onclickAttr.startsWith("setExpression")) {
+            const buttonExpressionId = onclickAttr.match(/'([^']+)'/)[1];
+            const buttonExpressionData = expressionList[buttonExpressionId];
+            if (buttonExpressionData && buttonExpressionData.type === expressionType) {
+                button.classList.remove('active');
+            }
+        }
+    });
+
+    if (event) {
+        event.target.classList.add('active');
+    }
+
+    renderCharacter();
+}
+
+function downloadCharacter() {
+    const characterDisplay = document.getElementById('character-display');
+    html2canvas(characterDisplay).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'character.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    });
+}
+
+function saveState() {
+    localStorage.setItem('characterCustomEngineState', JSON.stringify(characterState));
+    alert('Character state saved!');
+}
+
+function loadState() {
+    const savedState = localStorage.getItem('characterCustomEngineState');
+    if (savedState) {
+        const loadedState = JSON.parse(savedState);
+        Object.assign(characterState.equipped, loadedState.equipped);
+        Object.assign(characterState.expression, loadedState.expression);
+    }
+}
+
 // --- APPLICATION INITIALIZATION ---
 // @framework-migration-guide
 // This is the application's entry point.
 // In a framework, this is handled by the framework's own bootstrap process (e.g., main.ts in Angular).
 // The logic inside would be moved to a root component's lifecycle hook (e.g., `ngOnInit` or `mounted`).
 document.addEventListener('DOMContentLoaded', () => {
+    loadState();
     renderCharacter();
 
     // Add active class to initially equipped items' buttons
@@ -198,6 +266,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemId = characterState.equipped[type];
         if (itemId) {
             const button = document.querySelector(`button[onclick="toggleEquip('${itemId}', event)"]`);
+            if (button) {
+                button.classList.add('active');
+            }
+        }
+    }
+
+    // Add active class to initial expressions' buttons
+    for (const type in characterState.expression) {
+        const expressionId = characterState.expression[type];
+        if (expressionId) {
+            const button = document.querySelector(`button[onclick="setExpression('${expressionId}', event)"]`);
             if (button) {
                 button.classList.add('active');
             }
@@ -221,3 +300,4 @@ document.addEventListener('DOMContentLoaded', () => {
 // Example:
 // function formatItemName(item) { return item.name.es.toUpperCase(); }
 // In a template: {{ item | formatItemName }}
+''
