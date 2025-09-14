@@ -98,67 +98,32 @@ const characterState = {
     }
 };
 
-// --- COMPONENT LOGIC / CANVAS RENDERING ---
+// --- COMPONENT LOGIC / IMAGE RENDERING ---
 /**
  * @framework-migration-guide
  * This function's logic would be part of a "CharacterDisplay" component.
  * The framework's rendering engine would handle updating the view automatically when the state changes.
- * This function handles loading images and drawing them on the canvas.
+ * This function handles updating the src attribute of the character's image layers.
  */
-async function renderCharacterOnCanvas() {
-    const canvas = document.getElementById('character-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+function renderCharacter() {
+    // Base body and expressions
+    document.getElementById('character-body').src = 'img/character/base.png';
+    document.getElementById('character-eyes').src = characterState.expression.eyes;
+    document.getElementById('character-mouth').src = characterState.expression.mouth;
 
-    const loadImage = (src) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = src;
-        });
-    };
-
-    // Define the correct rendering order
-    const renderOrder = [
-        { path: 'img/character/base.png' }, // Base character image
-        characterState.equipped.pantsus,
-        characterState.equipped.bra,
-        characterState.equipped.bottom,
-        characterState.equipped.stockings,
-        characterState.equipped.top,
-        characterState.equipped.suit,
-        characterState.equipped.hands,
-        characterState.equipped.head,
-        { path: characterState.expression.eyes },
-        { path: characterState.expression.mouth }
-    ];
-
-    const imagePaths = renderOrder
-        .map(item => {
-            if (typeof item === 'string' && masterItemList[item]) {
-                return masterItemList[item].path;
-            }
-            if (typeof item === 'object' && item !== null && item.path) {
-                return item.path;
-            }
-            return null;
-        })
-        .filter(path => path !== null);
-
-    try {
-        const images = await Promise.all(imagePaths.map(loadImage));
-        
-        // Clear canvas before drawing
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw images in order
-        images.forEach(img => {
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        });
-    } catch (error) {
-        console.error("Error loading character images:", error);
-    }
+    // Equipment layers
+    const equipmentTypes = ['pantsus', 'bra', 'bottom', 'stockings', 'top', 'suit', 'hands', 'head'];
+    equipmentTypes.forEach(type => {
+        const layer = document.getElementById(`character-${type}`);
+        const itemId = characterState.equipped[type];
+        if (itemId && masterItemList[itemId]) {
+            layer.src = masterItemList[itemId].path;
+            layer.style.display = 'block';
+        } else {
+            layer.src = '';
+            layer.style.display = 'none';
+        }
+    });
 }
 
 
@@ -202,8 +167,8 @@ function toggleEquip(itemId) {
         }
     }
     
-    // Re-render the character on the canvas after state change
-    renderCharacterOnCanvas();
+    // Re-render the character after state change
+    renderCharacter();
 }
 
 // --- APPLICATION INITIALIZATION ---
@@ -212,7 +177,7 @@ function toggleEquip(itemId) {
 // In a framework, this is handled by the framework's own bootstrap process (e.g., main.ts in Angular).
 // The logic inside would be moved to a root component's lifecycle hook (e.g., `ngOnInit` or `mounted`).
 document.addEventListener('DOMContentLoaded', () => {
-    renderCharacterOnCanvas();
+    renderCharacter();
 });
 
 // --- PIPES / FILTERS ---
@@ -223,4 +188,3 @@ document.addEventListener('DOMContentLoaded', () => {
 // Example:
 // function formatItemName(item) { return item.name.es.toUpperCase(); }
 // In a template: {{ item | formatItemName }}
-''
