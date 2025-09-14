@@ -134,7 +134,7 @@ function renderCharacter() {
  * This would be a method in a "CharacterService" or "EquipmentService".
  * @param {string} itemId - The ID of the item from masterItemList.
  */
-function toggleEquip(itemId) {
+function toggleEquip(itemId, event) {
     const itemData = masterItemList[itemId];
     if (!itemData) {
         console.error(`El objeto con id '${itemId}' no existe.`);
@@ -152,6 +152,16 @@ function toggleEquip(itemId) {
 
     const isCurrentlyEquipped = equipped[itemType] === itemId;
 
+    // Remove active class from all buttons in the same group
+    const buttons = document.querySelectorAll(`.accordion-content button`);
+    buttons.forEach(button => {
+        const buttonItemId = button.getAttribute('onclick').replace("toggleEquip('", "").replace("', event)", "");
+        const buttonItemData = masterItemList[buttonItemId];
+        if (buttonItemData && buttonItemData.type === itemType) {
+            button.classList.remove('active');
+        }
+    });
+
     if (isCurrentlyEquipped) {
         equipped[itemType] = null;
     } else {
@@ -164,6 +174,10 @@ function toggleEquip(itemId) {
             equipped.pantsus = null;
         } else if (['top', 'bottom', 'bra', 'pantsus'].includes(itemType)) {
             equipped.suit = null;
+        }
+        // Add active class to the clicked button
+        if (event) {
+            event.target.classList.add('active');
         }
     }
     
@@ -178,6 +192,14 @@ function toggleEquip(itemId) {
 // The logic inside would be moved to a root component's lifecycle hook (e.g., `ngOnInit` or `mounted`).
 document.addEventListener('DOMContentLoaded', () => {
     renderCharacter();
+
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const accordionItem = header.parentElement;
+            accordionItem.classList.toggle('open');
+        });
+    });
 });
 
 // --- PIPES / FILTERS ---

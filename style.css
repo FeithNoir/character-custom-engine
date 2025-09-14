@@ -1,91 +1,169 @@
 /* --- Base Styles & Variables --- */
 @layer base {
-    :root {
-        /* Colors */
-        --color-primary: #4A90E2; /* A modern blue */
-        --color-secondary: #50E3C2; /* A minty green */
-        --color-accent: #F5A623; /* A warm orange */
-        --color-text-base: #333333;
-        --color-text-muted: #888888;
-        --color-background: #F4F5F7;
-        --color-surface: #FFFFFF;
+  :root {
+    /* Colors */
+    --color-primary: #4a90e2; /* A modern blue */
+    --color-secondary: #50e3c2; /* A minty green */
+    --color-accent: #f5a623; /* A warm orange */
+    --color-text-base: #333333;
+    --color-text-muted: #888888;
+    --color-background: #f4f5f7;
+    --color-surface: #ffffff;
 
-        /* Fonts */
-        --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
+    /* Fonts */
+    --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
 
-    body {
-        font-family: var(--font-family-sans);
-        color: var(--color-text-base);
-        background-color: var(--color-background);
-    }
+  body {
+    font-family: var(--font-family-sans);
+    color: var(--color-text-base);
+    background-color: var(--color-background);
+  }
 }
 /* --- /Base Styles & Variables --- */
 
 /* --- Color Utilities --- */
 .bg-primary {
-    background-color: var(--color-primary);
+  background-color: var(--color-primary);
 }
 
 .bg-secondary {
-    background-color: var(--color-secondary);
+  background-color: var(--color-secondary);
 }
 
 .bg-accent {
-    background-color: var(--color-accent);
+  background-color: var(--color-accent);
 }
 
 .bg-surface {
-    background-color: var(--color-surface);
+  background-color: var(--color-surface);
 }
 
 .text-primary {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .text-secondary {
-    color: var(--color-secondary);
+  color: var(--color-secondary);
 }
 
 .text-accent {
-    color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .text-muted {
-    color: var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 /* --- /Color Utilities --- */
 
 /* --- Component Styles --- */
 #character-display {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .character-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Ensures the image scales correctly without distortion */
-    object-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensures the image scales correctly without distortion */
+  object-position: center;
 }
 
 .hidden-item {
-    display: none;
+  display: none;
 }
 
 /* Z-index hierarchy */
-#character-body { z-index: 1; }
-#character-pantsus { z-index: 2; }
-#character-bra { z-index: 3; }
-#character-bottom { z-index: 4; }
-#character-stockings { z-index: 5; }
-#character-top { z-index: 6; }
-#character-suit { z-index: 7; }
-#character-hands { z-index: 8; }
-#character-head { z-index: 9; }
-#character-eyes { z-index: 10; }
-#character-mouth { z-index: 11; }
+#character-body {
+  z-index: 1;
+}
+#character-pantsus {
+  z-index: 2;
+}
+#character-bra {
+  z-index: 3;
+}
+#character-bottom {
+  z-index: 4;
+}
+#character-stockings {
+  z-index: 5;
+}
+#character-top {
+  z-index: 6;
+}
+#character-suit {
+  z-index: 7;
+}
+#character-hands {
+  z-index: 8;
+}
+#character-head {
+  z-index: 9;
+}
+#character-eyes {
+  z-index: 10;
+}
+#character-mouth {
+  z-index: 11;
+}
 
 /* --- /Component Styles --- */
+
+/* --- /Utility Classes --- */
+
+/* Accordion */
+.accordion-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.accordion-content {
+  display: none;
+}
+
+#options,
+.accordion-item.open,
+.accordion-item.open .accordion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#options h2 {
+  color: var(--color-primary);
+  padding: 0 0 1rem 0;
+  font-size: 2.5rem;
+  font-weight: 600;
+  border-bottom: 0.3rem solid var(--color-primary);
+}
+
+.accordion-content button.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.accordion-item.open h3 {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+.accordion-item.open .accordion-content button {
+  text-align: left;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  transition: 0.3s ease-in-out;
+}
+
+.accordion-item.open .accordion-content button:hover {
+  background-color: var(--color-text-muted);
+  color: var(--color-background);
+}
