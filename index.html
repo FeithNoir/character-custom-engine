@@ -19,7 +19,7 @@
         <!-- /Header -->
 
         <!-- Main Content -->
-        <main class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+        <main>
             
             <!-- Customization Options -->
             <section id="options" class="md:col-span-1 bg-white p-4 rounded-lg shadow">
@@ -27,11 +27,39 @@
                 <!-- Options will be loaded here by main.js -->
                 <div class="space-y-2">
                     <div class="accordion-item">
+                        <h3 class="accordion-header">Head</h3>
+                        <div class="accordion-content">
+                            <button onclick="toggleEquip('bunny_ears', event)">Bunny Ears</button>
+                            <button onclick="toggleEquip('neko_ears', event)">Neko Ears</button>
+                            <button onclick="toggleEquip('maid_diadema', event)">Maid Diadem</button>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
                         <h3 class="accordion-header">Tops</h3>
                         <div class="accordion-content">
                             <button onclick="toggleEquip('cheap_shirt', event)">Cheap Shirt</button>
                             <button onclick="toggleEquip('good_shirt', event)">Good Shirt</button>
                             <button onclick="toggleEquip('casual_top', event)">Casual Top</button>
+                            <button onclick="toggleEquip('maid_top', event)">Maid Top</button>
+                            <button onclick="toggleEquip('leather_shirt', event)">Leather Cuirass</button>
+                            <button onclick="toggleEquip('steel_armor', event)">Steel Armor</button>
+                            <button onclick="toggleEquip('scale_armor', event)">Scale Armor</button>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">Bras</h3>
+                        <div class="accordion-content">
+                            <button onclick="toggleEquip('bra_1', event)">Basic Bra</button>
+                            <button onclick="toggleEquip('bra_2', event)">Lace Bra</button>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">Hands</h3>
+                        <div class="accordion-content">
+                            <button onclick="toggleEquip('maid_guantelets', event)">Maid Gauntlets</button>
+                            <button onclick="toggleEquip('leather_guantelets', event)">Leather Gauntlets</button>
+                            <button onclick="toggleEquip('steel_guantelets', event)">Steel Gauntlets</button>
+                            <button onclick="toggleEquip('scale_guantelets', event)">Scale Gauntlets</button>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -40,19 +68,34 @@
                             <button onclick="toggleEquip('cheap_pants', event)">Cheap Pants</button>
                             <button onclick="toggleEquip('good_pants', event)">Good Pants</button>
                             <button onclick="toggleEquip('mini_skirt', event)">Mini Skirt</button>
+                            <button onclick="toggleEquip('maid_skirt', event)">Maid Skirt</button>
+                            <button onclick="toggleEquip('leather_skirt', event)">Leather Skirt</button>
+                            <button onclick="toggleEquip('steel_skirt', event)">Steel Skirt</button>
+                            <button onclick="toggleEquip('scale_skirt', event)">Scale Skirt</button>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">Pantsus</h3>
+                        <div class="accordion-content">
+                            <button onclick="toggleEquip('pantsus_1', event)">Basic Panties</button>
+                            <button onclick="toggleEquip('pantsus_2', event)">Ribbon Panties</button>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h3 class="accordion-header">Suits</h3>
                         <div class="accordion-content">
                             <button onclick="toggleEquip('bunny_suit', event)">Bunny Suit</button>
+                            <button onclick="toggleEquip('east_suit', event)">Eastern Outfit</button>
+                            <button onclick="toggleEquip('leotard', event)">Leotard</button>
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h3 class="accordion-header">Head</h3>
+                        <h3 class="accordion-header">Stockings</h3>
                         <div class="accordion-content">
-                            <button onclick="toggleEquip('bunny_ears', event)">Bunny Ears</button>
-                            <button onclick="toggleEquip('neko_ears', event)">Neko Ears</button>
+                            <button onclick="toggleEquip('maid_stocks', event)">Maid Stockings</button>
+                            <button onclick="toggleEquip('leather_stocks', event)">Leather Stockings</button>
+                            <button onclick="toggleEquip('steel_stocks', event)">Steel Stockings</button>
+                            <button onclick="toggleEquip('scale_stocks', event)">Scale Stockings</button>
                         </div>
                     </div>
                 </div>

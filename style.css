@@ -21,6 +21,20 @@
     background-color: var(--color-background);
   }
 }
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* --- /Base Styles & Variables --- */
 
 /* --- Color Utilities --- */
@@ -86,10 +100,10 @@
 #character-bra {
   z-index: 3;
 }
-#character-bottom {
+#character-stockings {
   z-index: 4;
 }
-#character-stockings {
+#character-bottom {
   z-index: 5;
 }
 #character-top {
@@ -124,6 +138,11 @@
 
 .accordion-content {
   display: none;
+}
+
+#options {
+  max-height: 770px;
+  overflow-y: scroll;
 }
 
 #options,
@@ -166,4 +185,18 @@
 .accordion-item.open .accordion-content button:hover {
   background-color: var(--color-text-muted);
   color: var(--color-background);
+}
+
+/* --- /Utility Classes --- */
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  main {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  #character-display {
+    height: 50vh; /* Adjust height for better visibility on mobile */
+  }
 }

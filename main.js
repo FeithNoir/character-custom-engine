@@ -193,6 +193,17 @@ function toggleEquip(itemId, event) {
 document.addEventListener('DOMContentLoaded', () => {
     renderCharacter();
 
+    // Add active class to initially equipped items' buttons
+    for (const type in characterState.equipped) {
+        const itemId = characterState.equipped[type];
+        if (itemId) {
+            const button = document.querySelector(`button[onclick="toggleEquip('${itemId}', event)"]`);
+            if (button) {
+                button.classList.add('active');
+            }
+        }
+    }
+
     const accordionHeaders = document.querySelectorAll('.accordion-header');
     accordionHeaders.forEach(header => {
         header.addEventListener('click', () => {
