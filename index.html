@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Custom Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- App Container -->
+    <div id="app" class="grid grid-rows-[auto,1fr,auto] min-h-screen">
+
+        <!-- Header -->
+        <header class="p-4 bg-white shadow">
+            <h1 class="text-2xl font-bold text-center">Character Customization</h1>
+        </header>
+        <!-- /Header -->
+
+        <!-- Main Content -->
+        <main class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+            
+            <!-- Customization Options -->
+            <section id="options" class="md:col-span-1 bg-white p-4 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">Options</h2>
+                <!-- Options will be loaded here by main.js -->
+            </section>
+            <!-- /Customization Options -->
+
+            <!-- Character Display -->
+            <section id="character-display" class="md:col-span-2 bg-white p-4 rounded-lg shadow flex items-center justify-center">
+                <!-- Character will be rendered here by main.js -->
+                <div id="character-container" class="relative w-full h-full">
+                    <img id="character-body" class="character-layer" src="" alt="Character Base">
+                    <img id="character-pantsus" class="character-layer" src="" alt="Character Pantsus">
+                    <img id="character-bra" class="character-layer" src="" alt="Character Bra">
+                    <img id="character-bottom" class="character-layer" src="" alt="Character Bottom">
+                    <img id="character-stockings" class="character-layer" src="" alt="Character Stockings">
+                    <img id="character-top" class="character-layer" src="" alt="Character Top">
+                    <img id="character-suit" class="character-layer" src="" alt="Character Suit">
+                    <img id="character-hands" class="character-layer" src="" alt="Character Hands">
+                    <img id="character-head" class="character-layer" src="" alt="Character Head">
+                    <img id="character-eyes" class="character-layer" src="" alt="Character Eyes">
+                    <img id="character-mouth" class="character-layer" src="" alt="Character Mouth">
+                </div>
+            </section>
+            <!-- /Character Display -->
+
+        </main>
+        <!-- /Main Content -->
+
+        <!-- Footer -->
+        <footer class="p-4 bg-white shadow">
+            <p class="text-center text-sm text-gray-500">© 2025 Character Custom Engine</p>
+        </footer>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /App Container -->
+
+    <script src="main.js"></script>
+</body>
+</html>
